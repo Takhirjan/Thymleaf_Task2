@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{head.html}">
+    <meta charset="UTF-8">
+    <title>Main page</title>
+</head>
+<body>
+<div th:insert="~{navbar.html}"></div>
+<form action="/add-task" method="post">
+    <button type="button" class="btn btn-primary m-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add Task
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">What would u like to add?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>NAME: </label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="text" class="form-control" name="name">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label>DESCRIPTION : </label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <textarea name="description" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label>DEADLINE DATE: </label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="date" class="form-control" name="deadlineDate">
+
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <button class="btn btn-success">ADD ITEM</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>DEADLINE DATE</th>
+        <th>IS COMPLETED</th>
+        <th style="width: 10%">Details</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="tsk :${tasksy}">
+
+        <td th:text="${tsk.id}"></td>
+        <td th:text="${tsk.name}"></td>
+        <td th:text="${tsk.deadlineDate}"></td>
+        <td th:text="${tsk.isCompleted()? 'YES':'NO'}"></td>
+        <td>
+            <a th:href="@{'/details/'+${tsk.id}}" class="btn btn-primary btn-sm">DETAILS</a>
+            <!--                        '/music-details?MusicId=-->
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>
